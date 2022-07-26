@@ -31,6 +31,8 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APPLICATION_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL_ADDRESS}}
+          healthcheck: https://${{secrets.HEROKU_APPLICATION_NAME}}.herokuapp.com
+          rollbackonhealthcheckfailed: true
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
@@ -44,11 +46,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: 'patch'
-  healthcheck:
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check the deployed service URL
-        uses: jtalk/url-health-check-action@v2
-        with:
-          url: https://${{secrets.HEROKU_APPLICATION_NAME}}.herokuapp.com
