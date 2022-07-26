@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
       - if: |
-          github.event_name == 'push' && 
+          github.event_name == 'pull_request' && 
           !contains((join(github.event.commits.*.message)), '#skip')
         name: deploy
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -31,3 +31,24 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: ${{secrets.HEROKU_APPLICATION_NAME}}
           heroku_email: ${{secrets.HEROKU_EMAIL_ADDRESS}}
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - if: |
+          github.event_name == 'pull_request' && 
+          !contains((join(github.event.commits.*.message)), '#skip')
+        name: Bump version and push tag
+        uses: anothrNick/github-tag-action@ce4b5ffa38e072fa7a901e417253c438fcc2ccce
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: 'patch'
+  healthcheck:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Check the deployed service URL
+        uses: jtalk/url-health-check-action@v2
+        with:
+          url: https://${{secrets.HEROKU_APPLICATION_NAME}}.herokuapp.com
