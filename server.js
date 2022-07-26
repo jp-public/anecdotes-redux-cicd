@@ -10,5 +10,5 @@ server.use(middlewares)
 server.use(router)
 
 server.listen(port, () => {
-  console.log('Server is up')
+  console.log('Server is starting')
 })
