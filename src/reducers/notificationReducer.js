@@ -30,3 +30,4 @@ export const setNotification = (text, delay) => {
 export const { createNotification, removeNotification } =
   notificationSlice.actions
 export default notificationSlice.reducer
+
