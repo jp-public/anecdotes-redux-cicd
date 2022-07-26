@@ -4,7 +4,7 @@ const initialState = ''
 
 const filterSlice = createSlice({
   name: 'notification',
-  initialState ,
+  initialState,
   reducers: {
     setFilter(state, action) {
       const filter = action.payload
