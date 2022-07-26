@@ -23,7 +23,7 @@ jobs:
       - name: build
         run: npm run build
       - if: |
-          github.event_name == 'push' && 
+          github.event_name == 'pull_request' && 
           !contains((join(github.event.commits.*.message)), '#skip')
         name: deploy
         uses: akhileshns/heroku-deploy@v3.12.12
