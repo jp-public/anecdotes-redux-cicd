@@ -22,8 +22,6 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
-      - name: server
-        run: npm run server
       - if: |
           github.event_name == 'push' && 
           !contains((join(github.event.commits.*.message)), '#skip')
