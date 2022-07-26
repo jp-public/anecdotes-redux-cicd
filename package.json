@@ -2,6 +2,7 @@
   "name": "redux-anecdotes",
   "version": "0.1.0",
   "private": true,
+  "main": "src/index.js",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "axios": "^0.27.2",
@@ -14,8 +15,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "start-prod": "react-scripts start",
+    "start": "node app.js",
+    "start-prod": "node app.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
