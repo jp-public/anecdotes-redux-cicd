@@ -26,7 +26,7 @@
     "lint:fix": "eslint . --fix",
     "server": "json-server -p3001 --watch db.json",
     "git": "git add . && git commit -m",
-    "postgit": "git push origin dev"
+    "postgit": "git push --all"
   },
   "eslintConfig": {
     "extends": [
