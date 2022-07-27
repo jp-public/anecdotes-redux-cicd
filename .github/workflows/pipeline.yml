@@ -5,7 +5,7 @@ on:
     branches:
       - main
   pull_request:
-    branches: [master]
+    branches: [main]
     types: [opened, synchronize]
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:3001
       - if: |
-          github.event_name == 'pull_request' && 
+          github.event_name == 'push' && 
           !contains((join(github.event.commits.*.message)), '#skip')
         name: deploy
         uses: akhileshns/heroku-deploy@v3.12.12
@@ -47,7 +47,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - if: |
-          github.event_name == 'pull_request' && 
+          github.event_name == 'push_request' && 
           !contains((join(github.event.commits.*.message)), '#skip')
         name: Bump version and push tag
         uses: anothrNick/github-tag-action@ce4b5ffa38e072fa7a901e417253c438fcc2ccce
