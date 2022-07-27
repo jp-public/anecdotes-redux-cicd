@@ -22,6 +22,8 @@ jobs:
         run: npm run eslint
       - name: build
         run: npm run build
+      - name: test
+        run: npm run test
       - if: |
           github.event_name == 'pull_request' && 
           !contains((join(github.event.commits.*.message)), '#skip')
